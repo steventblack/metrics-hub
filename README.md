@@ -24,6 +24,12 @@ Required configuration:
 
 The `snmp_exporter` is an optional service and should be removed if SNMP is not used for collecting device metrics. This service utilizes the open source `prom/snmp-exporter` utility to collect the SNMP data and store it in Prometheus. The `snmp_exporter` service references the `snmp/snmp.yml` file for decoding the SNMP data. This file is the output of the `snmp-generator` tool. For more information on the configuration and use of `snmp_exporter`, please see the Github documentation for [snmp_exporter](https://github.com/prometheus/snmp_exporter) and [snmp_generator](https://github.com/prometheus/snmp_exporter/tree/main/generator).
 
+Required configuration:
+- identify and download any MIBs that may be necessary for processing SNMP information from the device(s)
+- generate the `snmp.yml` file using the generator tool of `snmp_exporter` specifying the MIBs necessary
+- modify the `snmp.yml` with any authentication data that may be needed (community strings, auth usernames/passwords, etc.)
+- copy the `snmp.yml` file into the `snmp` directory 
+
 If SNMP is not used:
 - remove the `snmp_exporter` block from the `compose.yml` file
 - remove the `synology` job block from the `prometheus/prometheus.yml` file
