@@ -1,0 +1,22 @@
+apiVersion: 1
+
+# Loads predefined dashboards for various services.
+providers:
+  - name: 'Metrics Hub'
+    folder: 'Provisioned Dashboards'
+    type: file
+    updateIntervalSeconds: 30
+
+    # If a provisioned dashboard is deleted from the directory,
+    # then it will also be deleted from the runtime grafana DB.
+    disableDeletion: false
+
+    # Changes to the dashboards are disabled by default as those
+    # changes are *not* persisted back to the original file.
+    # Make a copy of the dashboard, make the changes, and then
+    # re-export it to the named directory for it to be preserved.
+    allowUiUpdates: false
+
+    # Note that the path is the exported path.
+    options:
+      path: /var/lib/grafana/dashboards

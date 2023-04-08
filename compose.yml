@@ -1,0 +1,65 @@
+# Secrets (not checked in!) for the admin username and password for Grafana.
+secrets:
+  graf_admin:
+    file: ./grafana/graf-admin.txt
+  graf_password:
+    file: ./grafana/graf-password.txt
+
+services:
+  # Required. TSDB used for pulling and storing metric data.
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    depends_on:
+      - snmp_exporter
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+
+  # Required. Graphical interface for viewing metrics and dashboards.
+  # Secrets for the admin username and password are pulled from the
+  # respective txt files. (See secrets block above.)
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    secrets:
+      - graf_admin
+      - graf_password
+    environment:
+      - GF_SECURITY_ADMIN_USER__FILE=/run/secrets/graf_admin
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/graf_password
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+  # Optional. May remove service block if SNMP not needed.
+  # If removed, the prometheus service should be modified to eliminate
+  # the depends_on clause for snmp_exporter.
+  # The snmp.yml file should be generated using the snmp-generator tool.
+  # See "https://github.com/prometheus/snmp_exporter/tree/main/generator" for details.
+  # If necessary, the snmp.yml file may need to be modified to include
+  # appropriate authentication information.
+  snmp_exporter:
+    image: prom/snmp-exporter
+    container_name: snmp-exporter
+    ports:
+      - 9116:9116
+    restart: unless-stopped
+    volumes:
+      - ./snmp/snmp.yml:/etc/snmp_exporter/snmp.yml
+
+# Required. 
+# - Used by prometheus service for persistent storage of collected data.
+# - Used by grafana service for persistent storage of dashboards and plugins
+volumes:
+  prom_data:
+  graf_data:
