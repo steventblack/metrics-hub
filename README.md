@@ -20,6 +20,11 @@ Required configuration:
 - create `grafana/graf-admin.txt` with the desired administrative username
 - create `grafana/graf-password.txt` with the desire admistrative password
 
+Optional configuration:
+- additional provisioned dashboards can be saved in the `grafana/dashboards` directory in JSON format
+- provisioned dashboards may be removed from the `grafana/dashboards` directory if not needed
+- updates to a provisioned dashboard must be re-exported and saved in the `grafana/dashboards` directory
+
 ## SNMP
 
 The `snmp_exporter` is an optional service and should be removed if SNMP is not used for collecting device metrics. This service utilizes the open source `prom/snmp-exporter` utility to collect the SNMP data and store it in Prometheus. The `snmp_exporter` service references the `snmp/snmp.yml` file for decoding the SNMP data. This file is the output of the `snmp-generator` tool. For more information on the configuration and use of `snmp_exporter`, please see the Github documentation for [snmp_exporter](https://github.com/prometheus/snmp_exporter) and [snmp_generator](https://github.com/prometheus/snmp_exporter/tree/main/generator).
