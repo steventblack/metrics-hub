@@ -9,7 +9,6 @@ rule_files:
 scrape_configs:
   # Prometheus instance
 - job_name: prometheus
-  honor_timestamps: true
   metrics_path: /metrics
   scheme: http
   static_configs:
