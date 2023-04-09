@@ -40,6 +40,7 @@ services:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - graf_data:/var/lib/grafana
 
   # Optional. May remove service block if SNMP not needed.
   # If removed, the prometheus service should be modified to eliminate
