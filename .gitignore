@@ -1,3 +1,10 @@
+# admin & password information for grafana should be ignored.
 grafana/graf-admin.txt
 grafana/graf-password.txt
+
+# snmp.yml may contain auth information. ignore it for safety.
 snmp/snmp.yml
+
+# admin & password information for unifi-poller should be ignored.
+unifi-poller/poller-admin.txt
+unifi-poller/poller-password.txt
