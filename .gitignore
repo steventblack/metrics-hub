@@ -5,6 +5,6 @@ grafana/graf-password.txt
 # snmp.yml may contain auth information. ignore it for safety.
 snmp/snmp.yml
 
-# admin & password information for unifi-poller should be ignored.
-unifi-poller/poller-admin.txt
-unifi-poller/poller-password.txt
+# password information for unpoller should be ignored.
+# docker secret use for the username is not supported.
+unpoller/poller-password.txt

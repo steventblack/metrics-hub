@@ -4,6 +4,8 @@ secrets:
     file: ./grafana/graf-admin.txt
   graf_password:
     file: ./grafana/graf-password.txt
+  poller_password:
+    file: ./unpoller/poller-password.txt
 
 services:
   # Required. TSDB used for pulling and storing metric data.
@@ -17,6 +19,7 @@ services:
     restart: unless-stopped
     depends_on:
       - snmp_exporter
+      - unpoller
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
@@ -47,7 +50,7 @@ services:
   # the depends_on clause for snmp_exporter.
   # The snmp.yml file should be generated using the snmp-generator tool.
   # See "https://github.com/prometheus/snmp_exporter/tree/main/generator" for details.
-  # If necessary, the snmp.yml file may need to be modified to include
+  # If necessary, the snmp.yml file may need additional editing to include
   # appropriate authentication information.
   snmp_exporter:
     image: prom/snmp-exporter
@@ -57,6 +60,27 @@ services:
     restart: unless-stopped
     volumes:
       - ./snmp/snmp.yml:/etc/snmp_exporter/snmp.yml
+
+  # Optional. May remove service block if unpoller is not needed.
+  # If removed, the prometheus service should be modified to eliminate
+  # the depends_on clause for unpoller
+  unpoller:
+    image: ghcr.io/unpoller/unpoller:latest
+    container_name: unpoller
+    ports:
+      - 9130:9130
+    restart: unless-stopped
+    secrets:
+      - poller_password
+    environment:
+      - UP_INFLUXDB_DISABLE=true
+      - UP_POLLER_DEBUG=false
+      - UP_UNIFI_DEFAULT_SAVE_DPI=false
+      - UP_PROMETHEUS_HTTP_LISTEN=unpoller:9130
+      - UP_PROMETHEUS_NAMESPACE=unpoller
+      - UP_UNIFI_DEFAULT_USER=unifipoller
+      - UP_UNIFI_DEFAULT_PASS=file:///run/secrets/poller_password
+      - UP_UNIFI_DEFAULT_URL=https://192.168.1.1
 
 # Required. 
 # - Used by prometheus service for persistent storage of collected data.
