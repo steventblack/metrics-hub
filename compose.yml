@@ -39,6 +39,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER__FILE=/run/secrets/graf_admin
       - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/graf_password
+      - GF_INSTALL_PLUGINS=grafana-clock-panel
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
@@ -72,12 +73,9 @@ services:
     restart: unless-stopped
     secrets:
       - poller_password
+    env_file:
+      - ./unpoller/unpoller.env
     environment:
-      - UP_INFLUXDB_DISABLE=true
-      - UP_POLLER_DEBUG=false
-      - UP_UNIFI_DEFAULT_SAVE_DPI=false
-      - UP_PROMETHEUS_HTTP_LISTEN=unpoller:9130
-      - UP_PROMETHEUS_NAMESPACE=unpoller
       - UP_UNIFI_DEFAULT_USER=unifipoller
       - UP_UNIFI_DEFAULT_PASS=file:///run/secrets/poller_password
       - UP_UNIFI_DEFAULT_URL=https://192.168.1.1
