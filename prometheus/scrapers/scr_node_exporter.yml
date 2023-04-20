@@ -1,0 +1,15 @@
+scrape_configs:
+- job_name: node_exporter
+  scrape_interval: 10s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - helium.springsurprise.com:9100
+    - neon.springsurprise.com:9100
+    - argon.springsurprise.com:9100
+    - krypton.springsurprise.com:9100
+    - xenon.springsurprise.com:9100
+    - dns-02.springsurprise.com:9100
+    - dns-03.springsurprise.com:9100
+# Replace targets with host(s) appropriate for your network

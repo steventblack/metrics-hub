@@ -6,46 +6,9 @@ global:
 rule_files:
   - alert.yml
 
+# Scrapers for the various services are read in from the scrapers directory.
+# Each scrape config is in a self-contained file. If a service is not necessary,
+# you can simply remove it from the scrapers directory and restart Prometheus.
 scrape_config_files:
-  - /etc/prometheus/prom_unpoller.yml
-
-scrape_configs:
-  # Prometheus instance
-- job_name: prometheus
-  metrics_path: /metrics
-  scheme: http
-  static_configs:
-  - targets:
-    - prometheus:9090
-
-  # Raspberry Pi nodes
-- job_name: node_exporter
-  scrape_interval: 10s
-  metrics_path: /metrics
-  scheme: http
-  static_configs:
-  - targets:
-    - helium.springsurprise.com:9100
-    - neon.springsurprise.com:9100
-    - argon.springsurprise.com:9100
-    - krypton.springsurprise.com:9100
-    - xenon.springsurprise.com:9100
-    - dns-02.springsurprise.com:9100
-    - dns-03.springsurprise.com:9100
-
-  # Synology (NAS) device
-- job_name: synology
-  metrics_path: /snmp
-  static_configs:
-    - targets:
-      - hovercraft.springsurprise.com
-  params:
-    module: [synology]
-  relabel_configs:
-    - source_labels: [__address__]
-      target_label: __param_target
-    - source_labels: [__param_target]
-      target_label: instance
-    - target_label: __address__
-      replacement: snmp_exporter:9116
+  - /etc/prometheus/scrapers/*.yml
 
