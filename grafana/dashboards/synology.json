@@ -1,59 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "9.4.7"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph (old)",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -79,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -2118,7 +2062,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
+      "pluginVersion": "9.4.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2223,7 +2167,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
+      "pluginVersion": "9.4.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2355,7 +2299,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
+      "pluginVersion": "9.4.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2460,7 +2404,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
+      "pluginVersion": "9.4.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2566,7 +2510,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 157
+        "y": 125
       },
       "id": 75,
       "panels": [
@@ -3263,7 +3207,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": {
         "type": "prometheus",
         "uid": "N1RGmymgz"
@@ -3272,10 +3216,439 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 163
+        "y": 131
       },
       "id": 50,
-      "panels": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 164
+          },
+          "hiddenSeries": false,
+          "id": 53,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "9.4.7",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:78",
+              "alias": "Tx",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "sum(iSCSILUNNetworkLatencyRx{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Rx",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "sum(iSCSILUNNetworkLatencyTx{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Tx",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "iSCSI Network Latency ($lunName)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:58",
+              "format": "µs",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:59",
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 164
+          },
+          "hiddenSeries": false,
+          "id": 55,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "9.4.7",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:78",
+              "alias": "Write",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "max(iSCSILUNDiskLatencyRead{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Read",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "max(iSCSILUNDiskLatencyWrite{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Write",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "iSCSI Disk Latency ($lunName)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:58",
+              "format": "µs",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:59",
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 172
+          },
+          "hiddenSeries": false,
+          "id": 54,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "9.4.7",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:78",
+              "alias": "Write",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "max(iSCSILUNIoSizeRead{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Read",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "max(iSCSILUNIoSizeWrite{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Write",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "iSCSI IO ($lunName)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:58",
+              "format": "binBps",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:59",
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 172
+          },
+          "hiddenSeries": false,
+          "id": 52,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "9.4.7",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:78",
+              "alias": "Write IOPs",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "max(iSCSILUNIopsRead{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Read IOPs",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "expr": "max(iSCSILUNIopsWrite{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Write IOPs",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "iSCSI IOPs ($lunName)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transformations": [],
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:58",
+              "format": "iops",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:59",
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        }
+      ],
       "repeat": "lunName",
       "targets": [
         {
@@ -3288,434 +3661,6 @@
       ],
       "title": "iSCSI ($lunName)",
       "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 164
-      },
-      "hiddenSeries": false,
-      "id": 53,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "$$hashKey": "object:78",
-          "alias": "Tx",
-          "transform": "negative-Y"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "sum(iSCSILUNNetworkLatencyRx{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Rx",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "sum(iSCSILUNNetworkLatencyTx{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Tx",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "iSCSI Network Latency ($lunName)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transformations": [],
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:58",
-          "format": "µs",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:59",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 164
-      },
-      "hiddenSeries": false,
-      "id": 55,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "$$hashKey": "object:78",
-          "alias": "Write",
-          "transform": "negative-Y"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "max(iSCSILUNDiskLatencyRead{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Read",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "max(iSCSILUNDiskLatencyWrite{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Write",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "iSCSI Disk Latency ($lunName)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transformations": [],
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:58",
-          "format": "µs",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:59",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 172
-      },
-      "hiddenSeries": false,
-      "id": 54,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "$$hashKey": "object:78",
-          "alias": "Write",
-          "transform": "negative-Y"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "max(iSCSILUNIoSizeRead{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Read",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "max(iSCSILUNIoSizeWrite{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Write",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "iSCSI IO ($lunName)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transformations": [],
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:58",
-          "format": "binBps",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:59",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 172
-      },
-      "hiddenSeries": false,
-      "id": 52,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "9.4.0-102220pre",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "$$hashKey": "object:78",
-          "alias": "Write IOPs",
-          "transform": "negative-Y"
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "max(iSCSILUNIopsRead{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Read IOPs",
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "expr": "max(iSCSILUNIopsWrite{instance=\"$host\", job=\"synology\"}) by (iSCSILUNInfoIndex) + on (iSCSILUNInfoIndex) group_left(iSCSILUNName) (0*iSCSILUNName{iSCSILUNName=\"$lunName\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Write IOPs",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "iSCSI IOPs ($lunName)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transformations": [],
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:58",
-          "format": "iops",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:59",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
     }
   ],
   "refresh": "1m",
@@ -3727,7 +3672,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "default",
           "value": "default"
         },
@@ -3745,7 +3690,11 @@
         "type": "datasource"
       },
       {
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "hovercraft.springsurprise.com",
+          "value": "hovercraft.springsurprise.com"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
@@ -3771,7 +3720,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
@@ -3797,7 +3750,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
@@ -3823,7 +3780,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
@@ -3858,6 +3819,6 @@
   "timezone": "",
   "title": "Synology NAS",
   "uid": "IugRCtkgz",
-  "version": 63,
+  "version": 1,
   "weekStart": ""
 }
