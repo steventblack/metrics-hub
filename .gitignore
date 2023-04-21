@@ -8,3 +8,7 @@ snmp/snmp.yml
 # password information for unpoller should be ignored.
 # docker secret use for the username is not supported.
 unpoller/poller-password.txt
+
+# pihole.env contains the IP addresses and access tokens.
+# do not check it in!
+pihole/pihole.env
