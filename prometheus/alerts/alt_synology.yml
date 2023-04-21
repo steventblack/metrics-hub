@@ -1,0 +1,6 @@
+groups:
+  - name: synology_down
+    rules:
+      - alert: InstanceDown
+        expr: up{job="synology"} < 1
+        for: 5m

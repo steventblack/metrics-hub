@@ -3,8 +3,12 @@ global:
   scrape_timeout: 10s
   evaluation_interval: 15s
 
+# Alert rules for the various services are read in from the alerts directory.
+# Each service has its own rules in a self-contained file. If a service is not
+# needed for your installation, you can simply remove it from the scrapers directory
+# and restart Prometheus.
 rule_files:
-  - alert.yml
+  - /etc/prometheus/alerts/*.yml
 
 # Scrapers for the various services are read in from the scrapers directory.
 # Each scrape config is in a self-contained file. If a service is not necessary,

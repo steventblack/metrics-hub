@@ -1,0 +1,6 @@
+groups:
+  - name: node_down
+    rules:
+      - alert: InstanceDown
+        expr: up{job="node_exporter"} < 1
+        for: 5m

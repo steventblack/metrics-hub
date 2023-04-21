@@ -1,0 +1,6 @@
+groups:
+  - name: unpoller_down
+    rules:
+      - alert: InstanceDown
+        expr: up{job="unpoller"} < 1
+        for: 5m
