@@ -1,0 +1,6 @@
+groups:
+  - name: pihole_down
+    rules:
+      - alert: InstanceDown
+        expr: up{job="pihole"} < 1
+        for: 5m

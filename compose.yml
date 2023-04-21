@@ -75,10 +75,24 @@ services:
       - poller_password
     env_file:
       - ./unpoller/unpoller.env
+    # The following env settings will need to be customized for each installation.
+    # The default user is the username set as a read-only admin user for the installation.
+    # The password is passed as a docker secret. (Username as a docker secret is not supported.)
+    # The default URL should be the name or IP address  of the Unifi controller.
     environment:
       - UP_UNIFI_DEFAULT_USER=unifipoller
       - UP_UNIFI_DEFAULT_PASS=file:///run/secrets/poller_password
       - UP_UNIFI_DEFAULT_URL=https://192.168.1.1
+
+    # Optional. May remove service block if pihole monitoring not needed.
+  pihole:
+    image: ekofr/pihole-exporter:latest
+    container_name: pihole-exporter
+    ports:
+      - 9617:9617
+    restart: unless-stopped
+    env_file:
+      - ./pihole/pihole.env
 
 # Required. 
 # - Used by prometheus service for persistent storage of collected data.

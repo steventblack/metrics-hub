@@ -1,0 +1,7 @@
+scrape_configs:
+  - job_name: pihole
+    scrape_interval: 10s
+    scheme: http
+    static_configs:
+      - targets: 
+        - pihole:9617
