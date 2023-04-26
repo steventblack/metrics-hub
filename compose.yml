@@ -20,6 +20,7 @@ services:
     depends_on:
       - snmp_exporter
       - unpoller
+      - pihole
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
