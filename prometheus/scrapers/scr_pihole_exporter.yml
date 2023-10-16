@@ -4,4 +4,5 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets: 
-        - pihole:9617
+        - dns-02.springsurprise.com:9617
+        - dns-03.springsurprise.com:9617
