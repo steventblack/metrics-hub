@@ -20,7 +20,6 @@ services:
     depends_on:
       - snmp_exporter
       - unpoller
-      - pihole
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
@@ -85,15 +84,15 @@ services:
       - UP_UNIFI_DEFAULT_PASS=file:///run/secrets/poller_password
       - UP_UNIFI_DEFAULT_URL=https://192.168.1.1
 
-    # Optional. May remove service block if pihole monitoring not needed.
-  pihole:
-    image: ekofr/pihole-exporter:latest
-    container_name: pihole-exporter
-    ports:
-      - 9617:9617
-    restart: unless-stopped
-    env_file:
-      - ./pihole/pihole.env
+  # Optional. May remove service block if Tesla power systems not needed.
+  #pypowerwall:
+  #  image: jasonacox/pypowerwall
+  #  container_name: pypowerwall
+  #  ports:
+  #    - 8675:8675
+  #  restart: unless-stopped
+  #  env_file:
+  #    - ./pypowerwall/powerwall.env
 
 # Required. 
 # - Used by prometheus service for persistent storage of collected data.
